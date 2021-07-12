@@ -21,9 +21,10 @@ namespace Streamish.Repositories
                 {
                     cmd.CommandText = @"
                SELECT up.Id, up.Name, up.Email, up.DateCreated AS UserProfileDateCreated,
-                      up.ImageUrl AS UserProfileImageUrl
-                        
+                      up.ImageUrl AS UserProfileImageUrl, up.IsDelete
+                      
                  FROM UserProfile up 
+                 WHERE IsDelete=0
              ORDER BY DateCreated
             ";
 
@@ -104,10 +105,10 @@ namespace Streamish.Repositories
                         OUTPUT INSERTED.ID
                         VALUES (@Name, @Email, @ImageUrl, @DateCreated)";
 
-                    DbUtils.AddParameter(cmd, "@Title", user.Name);
+                    DbUtils.AddParameter(cmd, "@Name", user.Name);
                     DbUtils.AddParameter(cmd, "@Description", user.Email);
-                    DbUtils.AddParameter(cmd, "@DateCreated", user.ImageUrl);
-                    DbUtils.AddParameter(cmd, "@Url", user.DateCreated);
+                    DbUtils.AddParameter(cmd, "@ImageUrl", user.ImageUrl);
+                    DbUtils.AddParameter(cmd, "@DateCreated", user.DateCreated);
 
                     user.Id = (int)cmd.ExecuteScalar();
                 }
@@ -147,8 +148,18 @@ namespace Streamish.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM UserProfile WHERE Id = @Id";
-                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.CommandText = @"
+                                        UPDATE UserProfile
+                                        SET IsDelete=1
+                                        WHERE Id= @id
+                                        ";
+                    //DELETE FROM Comment
+                    //                    WHERE VideoId = (SELECT Id WHERE UserProfileId = @Id);
+                    //DELETE FROM Video
+                    //WHERE UserProfileId = @Id;
+                    //DELETE FROM UserProfile
+                    //WHERE Id = @Id
+                    DbUtils.AddParameter(cmd, "@Id", id);
                     cmd.ExecuteNonQuery();
                 }
             }

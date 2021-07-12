@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Streamish.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserProfileController : Controller
     {
 

@@ -12,6 +12,8 @@ namespace Streamish.Repositories
     {
         List<Video> GetAll();
         List<Video> GetAllWithComments();
+        List<Video> Search(string criterion, bool sortDescending);
+
         public Video GetVideoByIdWithComments(int id);
         Video GetById(int id);
         public void Add(Video video);

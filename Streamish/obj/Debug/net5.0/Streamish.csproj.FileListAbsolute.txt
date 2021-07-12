@@ -50,3 +50,6 @@ C:\Users\Preston Shotts\workspace\Streamish\Streamish\obj\Debug\net5.0\Streamish
 C:\Users\Preston Shotts\workspace\Streamish\Streamish\obj\Debug\net5.0\ref\Streamish.dll
 C:\Users\Preston Shotts\workspace\Streamish\Streamish\obj\Debug\net5.0\Streamish.pdb
 C:\Users\Preston Shotts\workspace\Streamish\Streamish\obj\Debug\net5.0\Streamish.genruntimeconfig.cache
+C:\Users\Preston Shotts\workspace\Streamish\Streamish\bin\Debug\net5.0\client\package-lock.json
+C:\Users\Preston Shotts\workspace\Streamish\Streamish\bin\Debug\net5.0\client\package.json
+C:\Users\Preston Shotts\workspace\Streamish\Streamish\bin\Debug\net5.0\client\public\manifest.json

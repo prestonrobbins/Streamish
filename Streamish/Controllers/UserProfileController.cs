@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Streamish.Models;
 using Streamish.Repositories;
 using System;
 using System.Collections.Generic;
@@ -26,72 +27,44 @@ namespace Streamish.Controllers
         }
 
         // GET: UserProfileController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet("{id}")]
+        public ActionResult GetUserProfileById(int id)
         {
-            return View();
+            return Ok(_userProfileRepository.GetUserProfileById(id));
         }
 
-        // GET: UserProfileController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+       
 
         // POST: UserProfileController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult AddUserProfile(UserProfile user)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _userProfileRepository.AddUserProfile(user);
+            return CreatedAtAction("Get", new { id = user.Id }, user);
         }
 
         // GET: UserProfileController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPut("{id}")]
+        public ActionResult Update(int id,  UserProfile user)
         {
-            return View();
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            _userProfileRepository.Update(user);
+            return NoContent();
         }
 
-        // POST: UserProfileController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: UserProfileController/Delete/5
+        [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            return View();
+            _userProfileRepository.Delete(id);
+            return NoContent();
         }
 
-        // POST: UserProfileController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        // POST: UserProfileController/Delete/5       
     }
 }

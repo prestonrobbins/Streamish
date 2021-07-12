@@ -20,7 +20,7 @@ namespace Streamish.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-               SELECT up.Name, up.Email, up.DateCreated AS UserProfileDateCreated,
+               SELECT up.Id, up.Name, up.Email, up.DateCreated AS UserProfileDateCreated,
                       up.ImageUrl AS UserProfileImageUrl
                         
                  FROM UserProfile up 
@@ -34,7 +34,7 @@ namespace Streamish.Repositories
                     {
                         UserProfiles.Add(new UserProfile()
                         {
-                            Id = DbUtils.GetInt(reader, "UserProfileId"),
+                            Id = DbUtils.GetInt(reader, "Id"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Email = DbUtils.GetString(reader, "Email"),
                             DateCreated = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
@@ -59,7 +59,7 @@ namespace Streamish.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                      SELECT  up.Name, up.Email, up.DateCreated AS UserProfileDateCreated,
+                      SELECT  up.Id, up.Name, up.Email, up.DateCreated AS UserProfileDateCreated,
                               up.ImageUrl AS UserProfileImageUrl
 
                            FROM UserProfile up
@@ -76,7 +76,7 @@ namespace Streamish.Repositories
                     {
                         user = new UserProfile()
                         {
-                            Id = DbUtils.GetInt(reader, "VideoUserProfileId"),
+                            Id = DbUtils.GetInt(reader, "Id"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Email = DbUtils.GetString(reader, "Email"),
                             DateCreated = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
@@ -126,7 +126,7 @@ namespace Streamish.Repositories
                            SET Name = @Name,
                                Email = @Email,
                                ImageUrl = @ImageUrl,
-                               DateCreated = @DateCreated,
+                               DateCreated = @DateCreated
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Name", user.Name);

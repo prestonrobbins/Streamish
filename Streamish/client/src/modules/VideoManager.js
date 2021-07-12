@@ -19,3 +19,9 @@ export const getAllVideosWithComments = () => {
     return fetch(`${baseUrl}/GetWithComments`)
       .then((res) => res.json())
   };
+
+  export const videoSearch = (searchString) => {
+      return fetch(`${baseUrl}/search?q=${searchString}&sortDesc=true`)
+        .then((res) => res.json())
+
+  }

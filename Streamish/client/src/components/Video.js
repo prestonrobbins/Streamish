@@ -16,7 +16,7 @@ const Video = ({ video }) => {
           <strong>{video.title}</strong>
         </p>
         <p>{video.description}</p>
-        <p>{video.comments?.map(message => (<p>{message.message}</p>))}</p>
+        <p>{video.comments?.map(message => (<p className="border border-primary rounded m-2 p-2 ">{message.message}</p>))}</p>
       </CardBody>
     </Card>
   );
